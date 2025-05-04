@@ -1,0 +1,27 @@
+[package]
+name = "prediction-market-oracle"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["json", "blocking"] }
+wstd = { path = "../../../wstd" }
+
+[lib]
+crate-type = ["cdylib"]
+
+[dev-dependencies]
+mockall = "0.11"
+
+[profile.release]
+codegen-units = 1
+opt-level = "s"
+debug = false
+strip = true
+lto = true
+
+[package.metadata.component]
+package = "component:p2p-boolean-oracle"
+target = "wavs:worker/layer-trigger-world@0.3.0"
